@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}Login{% endblock %}
+{% block content %}
+	<section class="span4">
+		<form action="/ingresar/" method="post" class="form-horizontal">{% csrf_token %}
+			<div class="control-group">
+				<label for="username" class="control-label">Usuario</label>
+				<div class="controls">
+					<input type="text" name="username" id="username" placeholder="usuario" autofocus required />
+				</div>
+			</div>
+			<div class="control-group">
+				<label for="password" class="control-label">Contraseña</label>
+				<div class="controls">
+					<input type="password" name="password" id="password" placeholder="Contraseña" required />
+				</div>
+			</div>
+			<div class="control-group">
+				<div class="controls">
+					<label class="checkbox">
+						<input type="checkbox" name="checkbox" id="checkbox" /> Recordar
+					</label>
+					<input type="submit" value="Entrar" class="btn btn-primary">
+					<a href="{% url register %}" class="btn btn-success">Registrar</a>
+				</div>
+			</div>
+		</form>
+	</section>
+{% endblock %}

@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% block title %}
+	{% if active_category %}
+		{{ active_category }}
+	{% else %}
+		Variadas temáticas
+	{% endif %}
+{% endblock title %}
+{% block extrastyle %}
+<style type="text/css">
+	img.cover{
+		max-height: 200px;
+	}
+	.nav-tabs > li > a > i{
+		float: right;
+	}
+	.nav-tabs > .active > a,
+	.nav-tabs > .active > a:hover {
+		/*color: #FFF;
+		cursor: default;
+		background-color: #ffffff;
+		border: 1px solid #ddd;
+		border-bottom-color: transparent;*/
+		color: #FFF;
+		text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2);
+		background-color: #08C;
+	}
+</style>
+{% endblock %}
+{% block navigation %}
+	<section class="span3">
+		{% if categories %}
+		<ul class="nav nav-tabs nav-stacked">
+			<!-- Categories -->
+			{% for category in categories %}
+				{% if category.name == active_category %}
+				<li class="active"><a href="/categoria/{{ category.name }}">{{ category.name }}</a></li>
+				{% else %}
+				<li><a href="{% url category category.name %}"><i class="icon-chevron-right"></i> {{ category.name }}</a></li>
+				{% endif %}
+			{% endfor %}
+			<!-- End Categories -->
+		</ul>
+		{% else %}
+		<div class="alert alert-error">
+			No hay categorias
+		</div>
+		{% endif %}
+	</section>
+{% endblock %}
+{% block content %}
+	<section class="span9">
+		<ul class="thumbnails">
+			<!-- Books -->
+			{% if books %}
+			{% for book in books %}
+			<li>
+				<div class="thumbnail">
+					<img src="{{ MEDIA_URL }}{{ book.picture }}" alt="" class="cover" />
+					<h3>{{ book.title }}</h3>
+					<p>{{ book.description }}</p>
+					<a href="{% url book_detail book.id %}" class="btn btn-info btn-small"><i class="icon-plus icon-white"></i> info</a>
+					<a href="{% url cart_add_book book.id %}" class="btn btn-success btn-small"><i class="icon-shopping-cart icon-white"></i>Agregar al carrito</a>
+					<i class="icon-star"></i>
+				</div>
+			</li>
+			{% endfor %}
+			{% else %}
+			<div class="alert alert-error">
+				No se encontraron libros
+			</div>
+			{% endif %}
+			<!-- End Books -->
+		</ul>
+		<div class="pagination pagination-centered">
+			<ul>
+				{% if books.has_previous %}
+					<li><a href="?page={{ books.previous_page_number  }}">«</a></li>
+				{% else %}
+					<li class="disabled"><a href="?page={{ books.previous_page_number  }}">«</a></li>
+				{% endif %}
+				{% for page_number in range %}
+					{% if page_number == books.number %}
+						<li class="active"><a href="?page={{ books.number }}">{{ page_number }}</a></li>
+					{% else %}
+						<li><a href="?page={{ page_number }}">{{ page_number }}</a></li>
+					{% endif %}
+				{% endfor %}
+				{% if books.has_next %}
+					<li><a href="?page={{ books.next_page_number }}">»</a></li>
+				{% else %}
+					<li class="disabled"><a href="?page={{ books.next_page_number }}">»</a></li>
+				{% endif %}
+			</ul>
+		</div>
+	</section>
+{% endblock %}

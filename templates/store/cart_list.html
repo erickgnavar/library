@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block title %}Carrito de compras{% endblock %}
+{% block extrastyle %}
+	<style type="text/css">
+		@media screen and (max-width: 700px){
+			.price {
+				display: none;
+			}
+		}
+	</style>
+{% endblock extrastyle %}
+{% block content %}
+	<section class="">
+		{% if cart %}
+			<table class="table table-striped table-bordered table-hover">
+				<caption>Listado de compra</caption>
+				<thead>
+					<tr>
+						<th class="isbn">ISBN</th>
+						<th class="title">Titulo</th>
+						<th class="quantity">Cantidad</th>
+						<th class="price">Precio</th>
+						<th>Subtotal</th>
+						<th>Descuento</th>
+						<th>Opciones</th>
+					</tr>
+				</thead>
+				<tbody>
+				{% for item in items %}
+					<tr id="pk-{{ item.id }}">
+						<td class="isbn">{{ item.book.isbn }}</td>
+						<td class="title">{{ item.book.title }}</td>
+						<td class="quantity">{{ item.quantity }}</td>
+						<td class="price">{{ item.book.price }}</td>
+						<td>0</td>
+						<td>{{ item.discount_rate }}</td>
+						<td>
+							<a href="#" class="btn btn-info"><i class="icon-edit"></i></a>
+							<a href="{% url cart_delete_book item.id %}" class="btn btn-danger"><i class="icon-trash"></i></a>
+						</td>
+					</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+		{{ cart.total }}
+		{% else %}
+			<div class="alert alert-danger">
+				No hay items en el carrito
+			</div>
+		{% endif %}
+		{% if message %}
+			<div class="alert alert-warning">
+				{{ message }}
+			</div>
+		{% endif %}
+	</section>
+{% endblock %}

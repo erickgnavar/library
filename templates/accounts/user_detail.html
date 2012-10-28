@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}{{ user.first_name }} {{ user.last_name }}{% endblock title %}
+{% block extrastyle %}
+	<style type="text/css">
+		.nav-tabs > li > a > i{
+			float: right;
+		}
+		.nav-tabs > .active > a,
+		.nav-tabs > .active > a:hover {
+			/*color: #FFF;
+			cursor: default;
+			background-color: #ffffff;
+			border: 1px solid #ddd;
+			border-bottom-color: transparent;*/
+			color: #FFF;
+			text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.2);
+			background-color: #08C;
+		}
+	</style>
+{% endblock extrastyle %}
+{% block navigation %}
+	<section class="span2">
+		<ul class="nav nav-tabs nav-stacked">
+			<li class="active"><a href="#">Perfil</a></li>
+			<li><a href="#">Compras</a></li>
+			<li><a href="#">Puntos</a></li>
+			<li><a href="#">Configuración</a></li>
+		</ul>
+	</section>
+{% endblock navigation %}
