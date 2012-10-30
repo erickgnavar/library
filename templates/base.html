@@ -25,7 +25,7 @@
 					{% if user.is_authenticated %}
 						Bienvenido, <a href="{% url profile %}"><i class="icon-user"></i> {{ user.first_name }} {{ user.last_name }}</a> <a href="{% url logout %}"> <i class="icon-off"></i></a>
 					{% else %}
-						<a href="{% url login %}">Log in</a>
+						<a href="#login-modal" role="button" data-toggle="modal">Log in</a>
 					{% endif %}
 					</p>
 					<ul class="nav">
@@ -61,6 +61,41 @@
 			<p>&copy; Libreria</p>
 		</footer>
 	</section>
+	<!-- login modal -->
+	<div id="login-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-helper">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				<h3>Ingresa a tu cuenta</h3>
+			</div>
+			<div class="modal-helper">
+				<form action="{% url login %}" method="post" class="form-horizontal">{% csrf_token %}
+					<div class="control-group">
+						<label for="username" class="control-label">Usuario</label>
+						<div class="controls">
+							<input type="text" name="username" id="username" placeholder="usuario" autofocus required />
+						</div>
+					</div>
+					<div class="control-group">
+						<label for="password" class="control-label">Contraseña</label>
+						<div class="controls">
+							<input type="password" name="password" id="password" placeholder="Contraseña" required />
+						</div>
+					</div>
+					<div class="control-group">
+						<div class="controls">
+							<label class="checkbox">
+								<input type="checkbox" name="checkbox" id="checkbox" /> Recordar
+							</label>
+							<input type="submit" value="Entrar" class="btn btn-primary">
+							<a href="{% url register %}" class="btn btn-success">Registrar</a>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- end login modal -->
 	<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.min.js"></script>
 	<script type="text/javascript" src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
 	</script>
