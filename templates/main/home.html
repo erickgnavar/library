@@ -29,30 +29,27 @@
 {% endblock %}
 {% block navigation %}
 	<section class="span3">
-		{% if categories %}
+		<!-- Categories -->
 		<ul class="nav nav-tabs nav-stacked">
-			<!-- Categories -->
 			{% for category in categories %}
 				{% if category.name == active_category %}
 				<li class="active"><a href="/categoria/{{ category.name }}">{{ category.name }}</a></li>
 				{% else %}
 				<li><a href="{% url category category.name %}"><i class="icon-chevron-right"></i> {{ category.name }}</a></li>
 				{% endif %}
+			{% empty %}
+			<div class="alert alert-error">
+				No hay categorias
+			</div>
 			{% endfor %}
-			<!-- End Categories -->
 		</ul>
-		{% else %}
-		<div class="alert alert-error">
-			No hay categorias
-		</div>
-		{% endif %}
+		<!-- End Categories -->
 	</section>
 {% endblock %}
 {% block content %}
 	<section class="span9">
 		<ul class="thumbnails">
 			<!-- Books -->
-			{% if books %}
 			{% for book in books %}
 			<li>
 				<div class="thumbnail">
@@ -64,12 +61,11 @@
 					<i class="icon-star"></i>
 				</div>
 			</li>
-			{% endfor %}
-			{% else %}
+			{% empty %}
 			<div class="alert alert-error">
 				No se encontraron libros
 			</div>
-			{% endif %}
+			{% endfor %}
 			<!-- End Books -->
 		</ul>
 		<div class="pagination pagination-centered">
